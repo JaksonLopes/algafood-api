@@ -1,0 +1,40 @@
+### Consultar Restaurantes
+GET localhost:8080/restaurante
+Accept: application/json
+
+
+### Consultar por id
+GET localhost:8080/restaurante/5
+Accept: application/json
+
+### Cadastrar Restaurantes
+POST localhost:8080/restaurante
+Accept: application/json
+Content-Type: application/json
+
+{
+  "nome": "comida minera",
+  "taxaFrete": 12,
+  "cozinha": {
+    "id": 1
+  }
+}
+
+### atualizar Restaurantes
+PUT localhost:8080/restaurante/47
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": "4",
+  "nome": "comida jakson",
+  "taxaFrete": 14,
+  "cozinha": {
+    "id": 2
+  }
+}
+
+### remover Restaurantes
+DELETE localhost:8080/restaurante/1
+Accept: application/json
+Content-Type: application/json

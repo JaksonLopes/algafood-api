@@ -1,0 +1,28 @@
+### Consultar Empresa Nacional
+GET localhost:8080/estados
+Accept: application/json
+
+
+### Cadastrar Empresa Nacional
+POST localhost:8080/estados
+Accept: application/json
+Content-Type: application/json
+
+{
+  "nome": "flores de goias "
+}
+
+### Cadastrar Empresa Nacional
+PUT localhost:8080/estados/4
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 4,
+  "nome": "flores "
+}
+
+### Cadastrar Empresa Nacional
+DELETE localhost:8080/estados/6
+Accept: application/json
+Content-Type: application/json

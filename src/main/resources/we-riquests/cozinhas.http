@@ -1,0 +1,31 @@
+### Consultar cozinhas
+GET localhost:8080/cozinhas
+Accept: application/json
+
+
+### Consultar por id
+GET localhost:8080/cozinhas/2
+Accept: application/json
+
+### Cadastrar cozinha
+POST localhost:8080/cozinhas
+Accept: application/json
+Content-Type: application/json
+
+{
+  "nome": "mega Food4"
+}
+
+### atualizar cozinha
+PUT localhost:8080/cozinhas/3
+Accept: application/json
+Content-Type: application/json
+
+{
+  "nome": "mega Food2"
+}
+
+### remover cozinha
+DELETE localhost:8080/cozinhas/3
+Accept: application/json
+Content-Type: application/json
