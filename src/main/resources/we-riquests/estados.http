@@ -13,7 +13,7 @@ Content-Type: application/json
 }
 
 ### Cadastrar Empresa Nacional
-PUT localhost:8080/estados/4
+PUT localhost:8080/estados/1
 Accept: application/json
 Content-Type: application/json
 
@@ -23,6 +23,6 @@ Content-Type: application/json
 }
 
 ### Cadastrar Empresa Nacional
-DELETE localhost:8080/estados/6
+DELETE localhost:8080/estados/4
 Accept: application/json
 Content-Type: application/json

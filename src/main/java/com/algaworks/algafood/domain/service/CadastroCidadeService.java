@@ -12,6 +12,8 @@ import com.algaworks.algafood.domain.model.Estado;
 import com.algaworks.algafood.domain.repository.CidadeRepository;
 import com.algaworks.algafood.domain.repository.EstadoRepository;
 
+import java.util.Optional;
+
 @Service
 public class CadastroCidadeService {
 
@@ -23,21 +25,21 @@ public class CadastroCidadeService {
 	
 	public Cidade salvar(Cidade cidade) {
 		Long estadoId = cidade.getEstado().getId();
-		Estado estado = estadoRepository.buscar(estadoId);
+		Optional<Estado> estado = estadoRepository.findById(estadoId);
 		
-		if (estado == null) {
+		if (estado.isEmpty()) {
 			throw new EntidadeNaoEncontradaException(
 				String.format("Não existe cadastro de estado com código %d", estadoId));
 		}
 		
-		cidade.setEstado(estado);
+		cidade.setEstado(estado.get());
 		
-		return cidadeRepository.salvar(cidade);
+		return cidadeRepository.save(cidade);
 	}
 	
 	public void excluir(Long cidadeId) {
 		try {
-			cidadeRepository.remover(cidadeId);
+			cidadeRepository.deleteById(cidadeId);
 			
 		} catch (EmptyResultDataAccessException e) {
 			throw new EntidadeNaoEncontradaException(
