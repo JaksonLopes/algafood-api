@@ -1,14 +1,14 @@
 ### Consultar Restaurantes
-GET localhost:8080/restaurante
+GET localhost:8080/restaurantes
 Accept: application/json
 
 
 ### Consultar por id
-GET localhost:8080/restaurante/5
+GET localhost:8080/restaurantes/2
 Accept: application/json
 
 ### Cadastrar Restaurantes
-POST localhost:8080/restaurante
+POST localhost:8080/restaurantes
 Accept: application/json
 Content-Type: application/json
 
@@ -21,7 +21,7 @@ Content-Type: application/json
 }
 
 ### atualizar Restaurantes
-PUT localhost:8080/restaurante/47
+PUT localhost:8080/restaurantes/47
 Accept: application/json
 Content-Type: application/json
 
@@ -35,6 +35,17 @@ Content-Type: application/json
 }
 
 ### remover Restaurantes
-DELETE localhost:8080/restaurante/1
+DELETE localhost:8080/restaurantes/1
 Accept: application/json
 Content-Type: application/json
+
+
+### atualizar parcial
+PATCH localhost:8080/restaurantes/2
+Accept: application/json
+Content-Type: application/json
+
+{
+  "nome": "comida jakson",
+  "taxaFrete": 45
+}
