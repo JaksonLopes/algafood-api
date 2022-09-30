@@ -3,6 +3,11 @@ GET localhost:8080/restaurantes
 Accept: application/json
 
 
+### Consultar Restaurantes por taxa
+GET localhost:8080/restaurantes/taxa?taxaInicial=10&taxaFinal=20
+Accept: application/json
+
+
 ### Consultar por id
 GET localhost:8080/restaurantes/2
 Accept: application/json
