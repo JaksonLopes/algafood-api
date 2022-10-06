@@ -1,7 +1,11 @@
 package com.algaworks.algafood.domain.infrastructi.repository;
 
+import com.algaworks.algafood.domain.infrastructi.repository.spec.RestauranresSpecs;
 import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.RestalranreRepositoryQueries;
+import com.algaworks.algafood.domain.repository.RestauranteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -21,6 +25,9 @@ public class RestauranteRepositoryImpl implements RestalranreRepositoryQueries {
 
     @PersistenceContext
     private EntityManager manager;
+
+    @Autowired @Lazy
+    private RestauranteRepository restauranteRepository;
 
     @Override
     public List<Restaurante> find(String nome,
@@ -47,6 +54,12 @@ public class RestauranteRepositoryImpl implements RestalranreRepositoryQueries {
         criteria.where(predicates.toArray(new Predicate[0]));
 
         return query.getResultList();
+    }
+
+    @Override
+    public List<Restaurante> findComFreteGratis(String nome) {
+        return  restauranteRepository.findAll(RestauranresSpecs.comFreteGratis().and(RestauranresSpecs.comNomeSmelhante(nome)));
+
     }
 
 }

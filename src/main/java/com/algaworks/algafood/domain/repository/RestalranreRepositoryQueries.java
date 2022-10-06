@@ -8,4 +8,6 @@ import java.util.List;
 public interface RestalranreRepositoryQueries {
     List<Restaurante> find(String nome, BigDecimal taxaFrteInicial,
                            BigDecimal taxaFreteFinal);
+
+    List<Restaurante> findComFreteGratis(String nome);
 }

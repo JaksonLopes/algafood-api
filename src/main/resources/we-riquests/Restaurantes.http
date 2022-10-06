@@ -54,3 +54,8 @@ Content-Type: application/json
   "nome": "comida jakson",
   "taxaFrete": 45
 }
+
+
+### Consultar Restaurantes  com ferte gratis
+GET localhost:8080/restaurantes/teste?nome=a
+Accept: application/json
