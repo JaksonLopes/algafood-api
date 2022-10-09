@@ -18,39 +18,46 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Entity
 public class Restaurante {
 
-	@EqualsAndHashCode.Include
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(nullable = false)
-	private String nome;
-	
-	@Column(name = "taxa_frete", nullable = false)
-	private BigDecimal taxaFrete;
-	
-	@ManyToOne
-	@JoinColumn(name = "cozinha_id", nullable = false)
-	private Cozinha cozinha;
+    @EqualsAndHashCode.Include
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@CreationTimestamp
-	@Column(nullable = false)
-	private LocalDateTime dataCadastro;
+    @Column(nullable = false)
+    private String nome;
 
-	@UpdateTimestamp
-	@Column(nullable = false)
-	private LocalDateTime dataAtualizacao;
+    @Column(name = "taxa_frete", nullable = false)
+    private BigDecimal taxaFrete;
 
-	@JsonIgnore
-	@Embedded
-	private Endereco endereco;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cozinha_id", nullable = false)
+    private Cozinha cozinha;
 
-	//TODO relacionamento muitos pra muitos
-	// TODO precisa JoinTable e joinColumns = @JoinColumn(name = "restaurante_id")
-	@ManyToMany
-	@JsonIgnore
-	@JoinTable(name = "restaurante_forma_pagamento",
-	joinColumns = @JoinColumn(name = "restaurante_id"),
-	inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
-	private List<FormaPagamento> formaPagamentos = new ArrayList<>();
+    @JsonIgnore
+    @CreationTimestamp
+    @Column(nullable = false)
+    private LocalDateTime dataCadastro;
+
+    @JsonIgnore
+    @UpdateTimestamp
+    @Column(nullable = false)
+    private LocalDateTime dataAtualizacao;
+
+    @JsonIgnore
+    @Embedded
+    private Endereco endereco;
+
+    //TODO relacionamento muitos pra muitos
+    // TODO precisa JoinTable e joinColumns = @JoinColumn(name = "restaurante_id")
+    @ManyToMany
+    @JsonIgnore
+    @JoinTable(name = "restaurante_forma_pagamento",
+            joinColumns = @JoinColumn(name = "restaurante_id"),
+            inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
+    private List<FormaPagamento> formaPagamentos = new ArrayList<>();
+
+    //	@JsonIgnore
+    @JsonIgnore
+    @OneToMany(mappedBy = "restaurante")
+    private List<Produto> produtos = new ArrayList<>();
 }

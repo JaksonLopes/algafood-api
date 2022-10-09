@@ -9,7 +9,7 @@ Accept: application/json
 
 
 ### Consultar por id
-GET localhost:8080/restaurantes/2
+GET localhost:8080/restaurantes/4
 Accept: application/json
 
 ### Cadastrar Restaurantes
