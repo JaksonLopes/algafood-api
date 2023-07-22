@@ -1,0 +1,35 @@
+
+GET localhost:8080/cidades
+Accept: application/json
+
+
+### Cadastrar cidade
+POST localhost:8080/cidades
+Accept: application/json
+Content-Type: application/json
+
+{
+  "nome": "Fortaleza teste",
+  "estado": {
+    "id": 3,
+    "nome": "Ceará"
+  }
+}
+
+###
+PUT localhost:8080/cidades/5
+Accept: application/json
+Content-Type: application/json
+
+{
+  "nome": "Fortaleza teste",
+  "estado": {
+    "id": 3,
+    "nome": "Ceará"
+  }
+}
+
+###
+DELETE localhost:8080/cidades/6
+Accept: application/json
+Content-Type: application/json

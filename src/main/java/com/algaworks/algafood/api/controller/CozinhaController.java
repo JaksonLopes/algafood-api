@@ -3,8 +3,7 @@ package com.algaworks.algafood.api.controller;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,23 +23,22 @@ import com.algaworks.algafood.domain.repository.CozinhaRepository;
 import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping(value = "/cozinhas")
 public class CozinhaController {
 
-    @Autowired
-    private CozinhaRepository cozinhaRepository;
+    private final CozinhaRepository cozinhaRepository;
 
-    @Autowired
-    private CadastroCozinhaService cadastroCozinha;
+    private final CadastroCozinhaService cadastroCozinha;
 
     @GetMapping
     public List<Cozinha> listar() {
-        return cozinhaRepository.findAll();
+        return cadastroCozinha.listar();
     }
 
     @GetMapping("/{cozinhaId}")
     public ResponseEntity<Cozinha> buscar(@PathVariable Long cozinhaId) {
-        //TODO Optional
+
         Optional<Cozinha> cozinha = cozinhaRepository.findById(cozinhaId);
 
         if (cozinha.isPresent()) {
@@ -57,18 +55,9 @@ public class CozinhaController {
     }
 
     @PutMapping("/{cozinhaId}")
-    public ResponseEntity<Cozinha> atualizar(@PathVariable Long cozinhaId,
-                                             @RequestBody Cozinha cozinha) {
-        Optional<Cozinha> cozinhaAtual = cozinhaRepository.findById(cozinhaId);
-
-        if (cozinhaAtual.isPresent()) {
-            BeanUtils.copyProperties(cozinha, cozinhaAtual.get(), "id");
-
-            Cozinha cozinhaSalva = cadastroCozinha.salvar(cozinhaAtual.get());
-            return ResponseEntity.ok(cozinhaAtual.get());
-        }
-
-        return ResponseEntity.notFound().build();
+    public Cozinha atualizar(@PathVariable Long cozinhaId,
+                             @RequestBody Cozinha cozinha) {
+        return cadastroCozinha.atualizar(cozinha, cozinhaId);
     }
 
     @DeleteMapping("/{cozinhaId}")

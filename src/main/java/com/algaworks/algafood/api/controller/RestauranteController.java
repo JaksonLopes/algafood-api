@@ -30,19 +30,15 @@ public class RestauranteController {
 
     @GetMapping
     public List<Restaurante> listar() {
-        return restauranteRepository.findAll();
+        return cadastroRestaurante.listar();
     }
 
     @GetMapping("/{restauranteId}")
-    public ResponseEntity<Restaurante> buscar(@PathVariable Long restauranteId) {
-        Optional<Restaurante> restaurante = restauranteRepository.findById(restauranteId);
+    public Restaurante buscar(@PathVariable Long restauranteId) {
 
-        if (restaurante.isPresent()) {
-            return ResponseEntity.ok(restaurante.get());
-        }
-
-        return ResponseEntity.notFound().build();
+        return cadastroRestaurante.busrcarPorID(restauranteId);
     }
+
 
     @PostMapping
     public ResponseEntity<?> adicionar(@RequestBody Restaurante restaurante) {
@@ -61,12 +57,12 @@ public class RestauranteController {
     public ResponseEntity<?> atualizar(@PathVariable Long restauranteId,
                                        @RequestBody Restaurante restaurante) {
         try {
-           Optional <Restaurante> restauranteAtual = restauranteRepository.findById(restauranteId);
+            Restaurante restauranteAtual = cadastroRestaurante.busrcarPorID(restauranteId);
 
-            if (restauranteAtual.isPresent()) {
-                BeanUtils.copyProperties(restaurante, restauranteAtual.get(), "id", "formaPagamentos","endereco", "dataCadastro", "produtos");
+            if (restauranteAtual != null) {
+                BeanUtils.copyProperties(restaurante, restauranteAtual, "id", "formaPagamentos", "endereco", "dataCadastro", "produtos");
 
-               Restaurante restauranteSalva = cadastroRestaurante.salvar(restauranteAtual.get());
+                Restaurante restauranteSalva = cadastroRestaurante.salvar(restauranteAtual);
                 return ResponseEntity.ok(restauranteSalva);
             }
 
@@ -82,15 +78,15 @@ public class RestauranteController {
     public ResponseEntity<?> atualizarParcial(@PathVariable Long restauranteId,
                                               @RequestBody Map<String, Object> campos) {
 
-        Optional<Restaurante> restauranteAtual = restauranteRepository.findById(restauranteId);
+        Restaurante restauranteAtual =  cadastroRestaurante.busrcarPorID(restauranteId);
 
-        if (restauranteAtual.isEmpty()) {
+        if (restauranteAtual != null) {
             return ResponseEntity.notFound().build();
         }
 
-        merge(campos, restauranteAtual.get());
+        merge(campos, restauranteAtual);
 
-        return atualizar(restauranteId, restauranteAtual.get());
+        return atualizar(restauranteId, restauranteAtual);
     }
 
     private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDestino) {
@@ -98,28 +94,27 @@ public class RestauranteController {
         Restaurante restauranteOrigem = objectMapper.convertValue(dadosOrigem, Restaurante.class);
 
 
-
         dadosOrigem.forEach((nomePropiedade, valorpropiedade) -> {
             Field field = ReflectionUtils.findField(Restaurante.class, nomePropiedade);
             field.setAccessible(true);
             System.out.println(nomePropiedade + "=" + valorpropiedade);
 
-            Object novoValor = ReflectionUtils.getField(field,restauranteOrigem);
+            Object novoValor = ReflectionUtils.getField(field, restauranteOrigem);
 
             ReflectionUtils.setField(field, restauranteDestino, novoValor);
         });
     }
-//TODO rr
+
     @GetMapping("/taxa")
     public List<Restaurante> buscarRestauranteTaxaFrete(BigDecimal taxaInicial, BigDecimal taxaFinal) {
 
-        return restauranteRepository.findByTaxaFreteBetween(taxaInicial,taxaFinal);
+        return restauranteRepository.findByTaxaFreteBetween(taxaInicial, taxaFinal);
     }
 
     @GetMapping("/nomeOuId")
     public List<Restaurante> buscarRestauranteNome(String nome, Long id) {
 
-        return restauranteRepository.findByNomeContainingAndCozinhaId(nome,id);
+        return restauranteRepository.findByNomeContainingAndCozinhaId(nome, id);
     }
 
 

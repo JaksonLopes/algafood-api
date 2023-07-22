@@ -11,7 +11,4 @@ public interface CozinhaRepository extends JpaRepository<Cozinha, Long> {
     // nomeclatura padrão do JPA{
     // }
     List<Cozinha> findByNome(String nome);
-
-
-
 }
