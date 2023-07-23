@@ -53,7 +53,7 @@ public class Restaurante {
     //TODO relacionamento muitos pra muitos
     // TODO precisa JoinTable e joinColumns = @JoinColumn(name = "restaurante_id")
     @ManyToMany
-//    @JsonIgnore
+    @JsonIgnore
     @JoinTable(name = "restaurante_forma_pagamento",
             joinColumns = @JoinColumn(name = "restaurante_id"),
             inverseJoinColumns = @JoinColumn(name = "forma_pagamento_id"))
