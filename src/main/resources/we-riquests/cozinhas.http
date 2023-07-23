@@ -4,7 +4,7 @@ Accept: application/json
 
 
 ### Consultar por id
-GET localhost:8080/cozinhas/2
+GET localhost:8080/cozinhas/1
 Accept: application/json
 
 ### Cadastrar cozinha
@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ### atualizar cozinha
-PUT localhost:8080/cozinhas/55
+PUT localhost:8080/cozinhas/11
 Accept: application/json
 Content-Type: application/json
 
@@ -26,6 +26,6 @@ Content-Type: application/json
 }
 
 ### remover cozinha
-DELETE localhost:8080/cozinhas/3
+DELETE localhost:8080/cozinhas/1
 Accept: application/json
 Content-Type: application/json

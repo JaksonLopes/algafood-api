@@ -20,18 +20,12 @@ import java.util.Optional;
 @Service
 public class CadastroCozinhaService {
 
+    public static final String MSG_COZINHA_NAO_ENCOTRADA = "Não existe um cadastro de cozinha com código %d";
+    public static final String MSG_COZINHA_EM_USO = "Cozinha de código %d não pode ser removida, pois está em uso";
     private final CozinhaRepository cozinhaRepository;
 
     public Cozinha salvar(Cozinha cozinha) {
         return cozinhaRepository.save(cozinha);
-    }
-
-    public Cozinha atualizar(Cozinha cozinha, Long id) {
-        Optional<Cozinha> cozinhaAtual = cozinhaRepository.findById(id);
-
-        BeanUtils.copyProperties(cozinha, cozinhaAtual.get(), "id");
-
-        return salvar(cozinhaAtual.get());
     }
 
     public void excluir(Long cozinhaId) {
@@ -40,15 +34,20 @@ public class CadastroCozinhaService {
 
         } catch (EmptyResultDataAccessException e) {
             throw new EntidadeNaoEncontradaException(
-                    String.format("Não existe um cadastro de cozinha com código %d", cozinhaId));
+                    String.format(MSG_COZINHA_NAO_ENCOTRADA, cozinhaId));
 
         } catch (DataIntegrityViolationException e) {
             throw new EntidadeEmUsoException(
-                    String.format("Cozinha de código %d não pode ser removida, pois está em uso", cozinhaId));
+                    String.format(MSG_COZINHA_EM_USO, cozinhaId));
         }
     }
 
     public List<Cozinha> listar() {
         return cozinhaRepository.findAll();
+    }
+
+    public Cozinha buscarOuFalar(Long cozinhaId) {
+        return cozinhaRepository.findById(cozinhaId).orElseThrow(()-> new EntidadeNaoEncontradaException(
+                String.format(MSG_COZINHA_NAO_ENCOTRADA, cozinhaId)));
     }
 }

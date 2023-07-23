@@ -9,27 +9,24 @@ import com.algaworks.algafood.domain.model.Restaurante;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CadastroRestauranteService {
 
+    public static final String MSG_NAO_EXISTE_RESTAURANTE = "Não existe cadastro de reastaurante com código %d";
     @Autowired
     private RestauranteRepository restauranteRepository;
 
     @Autowired
-    private CozinhaRepository cozinhaRepository;
+    private CadastroCozinhaService cadastroCozinhaService;
 
     public Restaurante salvar(Restaurante restaurante) {
         Long cozinhaId = restaurante.getCozinha().getId();
-
-        Cozinha cozinha = cozinhaRepository.findById(cozinhaId).
-                orElseThrow(() -> new EntidadeNaoEncontradaException(
-                        String.format("Não existe cadastro de cozinha com código %d", cozinhaId)));
-
+        Cozinha cozinha = cadastroCozinhaService.buscarOuFalar(cozinhaId);
         restaurante.setCozinha(cozinha);
-
         return restauranteRepository.save(restaurante);
     }
 
@@ -38,8 +35,16 @@ public class CadastroRestauranteService {
     }
 
     public Restaurante busrcarPorID(Long restauranteId) {
+       return restauranteRepository.findById(restauranteId).orElseThrow(() -> new
+               EntidadeNaoEncontradaException(String.format(MSG_NAO_EXISTE_RESTAURANTE, restauranteId)));
 
-        Optional<Restaurante> restaurante = restauranteRepository.findById(restauranteId);
-        return restaurante.get();
+    }
+
+    public List<Restaurante> findByTaxaFreteBetween(BigDecimal taxaInicial, BigDecimal taxaFinal) {
+        return  restauranteRepository.findByTaxaFreteBetween(taxaInicial,taxaFinal);
+    }
+
+    public List<Restaurante> findByNomeContainingAndCozinhaId(String nome, Long id) {
+        return  restauranteRepository.findByNomeContainingAndCozinhaId(nome,id);
     }
 }
