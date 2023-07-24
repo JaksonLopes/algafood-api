@@ -17,14 +17,14 @@ Content-Type: application/json
 }
 
 ###
-PUT localhost:8080/cidades/5
+PUT localhost:8080/cidades/1
 Accept: application/json
 Content-Type: application/json
 
 {
   "nome": "Fortaleza teste",
   "estado": {
-    "id": 3,
+    "id": 44,
     "nome": "Ceará"
   }
 }

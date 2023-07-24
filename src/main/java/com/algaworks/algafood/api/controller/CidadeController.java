@@ -3,6 +3,7 @@ package com.algaworks.algafood.api.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.algaworks.algafood.domain.exception.NegocioException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,18 +33,26 @@ public class CidadeController {
         return cadastroCidade.buscarPorID(cidadeId);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Cidade adicionar(@RequestBody Cidade cidade) {
-        return cadastroCidade.salvar(cidade);
+        try {
+            return cadastroCidade.salvar(cidade);
+        }catch (EntidadeNaoEncontradaException e){
+            throw  new NegocioException(e.getMessage());
+        }
     }
 
     @PutMapping("/{cidadeId}")
     public Cidade atualizar(@PathVariable Long cidadeId,
                             @RequestBody Cidade cidade) {
-
         Cidade cidadeAtual = cadastroCidade.buscarPorID(cidadeId);
         BeanUtils.copyProperties(cidade, cidadeAtual, "id");
-        return cadastroCidade.salvar(cidadeAtual);
+        try {
+            return cadastroCidade.salvar(cidadeAtual);
+        }catch (EntidadeNaoEncontradaException e){
+            throw  new NegocioException(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{cidadeId}")
