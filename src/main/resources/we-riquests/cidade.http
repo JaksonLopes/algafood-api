@@ -30,6 +30,6 @@ Content-Type: application/json
 }
 
 ###
-DELETE localhost:8080/cidades/6
+DELETE localhost:8080/cidades/1
 Accept: application/json
 Content-Type: application/json
