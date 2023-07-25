@@ -1,5 +1,6 @@
 package com.algaworks.algafood.domain.service;
 
+import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,7 @@ public class CadastroCozinhaService {
             cozinhaRepository.deleteById(cozinhaId);
 
         } catch (EmptyResultDataAccessException e) {
-            throw new EntidadeNaoEncontradaException(
-                    String.format(MSG_COZINHA_NAO_ENCOTRADA, cozinhaId));
+            throw new CozinhaNaoEncontradaException(cozinhaId);
 
         } catch (DataIntegrityViolationException e) {
             throw new EntidadeEmUsoException(
@@ -47,7 +47,6 @@ public class CadastroCozinhaService {
     }
 
     public Cozinha buscarOuFalar(Long cozinhaId) {
-        return cozinhaRepository.findById(cozinhaId).orElseThrow(()-> new EntidadeNaoEncontradaException(
-                String.format(MSG_COZINHA_NAO_ENCOTRADA, cozinhaId)));
+        return cozinhaRepository.findById(cozinhaId).orElseThrow(()-> new CozinhaNaoEncontradaException(cozinhaId));
     }
 }

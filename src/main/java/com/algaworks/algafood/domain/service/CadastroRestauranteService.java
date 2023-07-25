@@ -1,5 +1,6 @@
 package com.algaworks.algafood.domain.service;
 
+import com.algaworks.algafood.domain.exception.RestauranteNaoEncontradaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +37,7 @@ public class CadastroRestauranteService {
 
     public Restaurante busrcarPorID(Long restauranteId) {
        return restauranteRepository.findById(restauranteId).orElseThrow(() -> new
-               EntidadeNaoEncontradaException(String.format(MSG_NAO_EXISTE_RESTAURANTE, restauranteId)));
+               RestauranteNaoEncontradaException(restauranteId));
 
     }
 
