@@ -26,7 +26,7 @@ Content-Type: application/json
 }
 
 ### atualizar Restaurantes
-PUT localhost:8080/restaurantes/4
+PUT localhost:8080/restaurantes/42
 Accept: application/json
 Content-Type: application/json
 
