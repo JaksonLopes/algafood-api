@@ -24,7 +24,7 @@ Content-Type: application/json
 {
   "nome": "Fortaleza teste",
   "estado": {
-    "id": 44,
+    "id": 1,
     "nome": "Ceará"
   }
 }

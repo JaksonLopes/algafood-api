@@ -2,7 +2,6 @@
 GET localhost:8080/restaurantes
 Accept: application/json
 
-
 ### Consultar Restaurantes por taxa
 GET localhost:8080/restaurantes/taxa?taxaInicial=15&taxaFinal=20
 Accept: application/json
@@ -21,7 +20,7 @@ Content-Type: application/json
   "nome": "comida mineqra",
   "taxaFrete": 12,
   "cozinha": {
-    "id": 177
+    "id": 1
   }
 }
 
