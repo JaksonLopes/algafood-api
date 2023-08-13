@@ -18,7 +18,7 @@ Content-Type: application/json
 
 {
   "nome": "",
-  "taxaFrete": 12,
+  "taxaFrete": -12,
   "cozinha": {
     "id": 1
   }
