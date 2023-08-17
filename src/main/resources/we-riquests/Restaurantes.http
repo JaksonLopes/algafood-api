@@ -8,7 +8,7 @@ Accept: application/json
 
 
 ### Consultar por id
-GET localhost:8080/restaurantes/4
+GET localhost:8080/restaurantes/1
 Accept: application/json
 
 ### Cadastrar Restaurantes
@@ -55,7 +55,10 @@ Content-Type: application/json
   "taxaFrete": 45
 }
 
-
 ### Consultar Restaurantes  com ferte gratis
 GET localhost:8080/restaurantes/teste?nome=a
+Accept: application/json
+
+### Consultar Restaurantes  com ferte gratis
+DELETE localhost:8080/restaurantes/1/ativo
 Accept: application/json
